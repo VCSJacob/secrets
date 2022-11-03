@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-mongoose.connect("mongodb://localhost:27017/userDB");
+mongoose.connect("mongodb://0.0.0.0/userDB");
 // Boiler Plate Code ^^^
 
   const userSchema = new mongoose.Schema({
