@@ -25,7 +25,7 @@ mongoose.connect("mongodb://localhost:27017/userDB");
   });
 
 
-  userSchema.plugin(encrypt, { secret: process.env.SECRET , encryptedFields: ["password"] }); //Make sure string matches name of field
+  userSchema.plugin(encrypt, { secret: process.env.SECRETT , encryptedFields: ["password"] }); //Make sure string matches name of field
 
 
 const User = new mongoose.model("User", userSchema);
