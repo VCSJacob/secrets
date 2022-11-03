@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const mongoose = require("mongoose");
 const encrypt = require("mongoose-encryption");
-
+const bcrypt = require ("bcrypt")
 const app = express();
 app.use(express.static("public"));
 app.set('view engine', 'ejs');
@@ -20,8 +20,6 @@ mongoose.connect("mongodb://0.0.0.0/userDB");
     password: String
   });
 
-  const secret = "thisIsTheSecret";
-  userSchema.plugin(encrypt, { secret: secret, encryptedFields: ["password"] }); //Make sure string matches name of field
 
 
 const User = new mongoose.model("User", userSchema);
@@ -66,11 +64,11 @@ User.findOne({email: username}, function(err, foundUser){
   }else{
     if(foundUser){
       console.log(foundUser);
-      if(foundUser.password === password){
-        res.render("secrets");
-      }else{
-        res.render("register");
-      }
+      bcrypt.compare(password, hash, function(err, result){
+        if(result === true){
+          res.render("secrets")
+        }
+      })
     }
   }
 });
